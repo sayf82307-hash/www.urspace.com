@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CreateSpace — Portfolio Studio</title>
+<style>
+:root{--blue:#1769ff;--bg:#f5f8ff;--ink:#17233d;--muted:#68758d}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#fff;border-bottom:1px solid #e5ebf5;padding:18px max(20px,calc((100vw - 1250px)/2));display:flex;justify-content:space-between;align-items:center;gap:12px}
+.logo{font-weight:850;font-size:23px;letter-spacing:-1px}.logo span{color:var(--blue)}
+button,.download{cursor:pointer;border:0;border-radius:11px;padding:11px 16px;font-weight:700;background:var(--blue);color:white;font:inherit}
+button.secondary{background:#eaf1ff;color:#1358d4}.top-actions{display:flex;gap:8px}
+main{max-width:1250px;margin:32px auto;padding:0 20px}.intro h1{font-size:clamp(28px,4vw,42px);letter-spacing:-1.5px;margin:0}.intro p{color:var(--muted);margin:10px 0 28px}
+.layout{display:grid;grid-template-columns:minmax(280px,430px) minmax(0,1fr);gap:22px;align-items:start}
+.panel{background:white;border:1px solid #e2e9f4;border-radius:20px;padding:23px;box-shadow:0 10px 35px #1b42800b}
+h2{margin:0 0 18px;font-size:20px}h3{font-size:15px;margin:24px 0 12px}label{font-size:13px;font-weight:700;display:block;margin:13px 0 6px}
+input,textarea,select{width:100%;border:1px solid #dce4f0;border-radius:10px;padding:11px 12px;font:inherit;background:#fff;color:var(--ink)}
+textarea{min-height:80px;resize:vertical}input:focus,textarea:focus,select:focus{outline:2px solid #a5c3ff;border-color:var(--blue)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.color-field{height:43px;padding:4px}
+.repeat{border:1px solid #e2e9f4;border-radius:12px;padding:13px;margin:12px 0;background:#fbfcff}
+.repeat button{background:#fff;color:#b42337;border:1px solid #f2ccd2;padding:7px 10px;font-size:12px;margin-top:8px}
+.add{width:100%;background:#eaf1ff;color:#1358d4;margin-top:7px}.preview-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}
+.preview-head h2{margin:0}.preview-shell{background:#e9effa;border-radius:15px;padding:18px;min-height:520px}
+#preview{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px #17233d15}
+.p-hero{padding:42px 36px;background:var(--accent);color:white}.p-hero h1{margin:0;font-size:clamp(28px,4vw,43px);overflow-wrap:anywhere}.p-hero p{margin:9px 0 0;opacity:.95;overflow-wrap:anywhere}
+.p-body{padding:30px 36px}.p-body section{margin-bottom:30px}.p-body h2{color:var(--accent);font-size:19px;border-bottom:1px solid #e5ebf5;padding-bottom:9px}
+.p-body p,.p-body li{line-height:1.7;overflow-wrap:anywhere}.p-tags{display:flex;gap:8px;flex-wrap:wrap}.p-tag{background:#edf3ff;color:#173d75;padding:7px 12px;border-radius:30px;font-size:13px}
+.project{padding:13px 0;border-bottom:1px solid #e5ebf5}.project strong{display:block}.project p{margin:5px 0}.p-contact{background:#f4f7fc;padding:20px 36px;font-size:14px;overflow-wrap:anywhere}
+a{color:inherit}.footer{text-align:center;color:var(--muted);font-size:13px;padding:28px 10px}
+@media(max-width:860px){.layout{grid-template-columns:1fr}.panel{padding:17px}.p-hero{padding:32px 22px}.p-body{padding:23px 22px}.p-contact{padding:18px 22px}}
+@media(max-width:480px){header{flex-wrap:wrap}.top-actions{width:100%}.top-actions button{flex:1}.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="logo">Create<span>Space</span> ✦</div><div class="top-actions"><button class="secondary" id="langBtn" type="button">FR</button><button id="downloadTop" type="button" data-i18n="download">Download HTML ↓</button></div></header>
+<main>
+<div class="intro"><h1 data-i18n="headline">Build a portfolio that's yours.</h1><p data-i18n="subhead">Edit your details, personalize your colors, and download a complete website — 100% free.</p></div>
+<div class="layout">
+<div class="panel">
+<h2 data-i18n="editor">Portfolio editor</h2>
+<h3 data-i18n="personal">Personal details</h3>
+<label for="name" data-i18n="name">Full name</label><input id="name" value="Alex Morgan" maxlength="120">
+<label for="role" data-i18n="role">Professional title</label><input id="role" value="Designer & Developer" maxlength="150">
+<label for="about" data-i18n="about">About me</label><textarea id="about">I create beautiful digital experiences that connect people and ideas.</textarea>
+<div class="two"><div><label for="email" data-i18n="email">Email</label><input id="email" type="email" value="hello@example.com"></div><div><label for="location" data-i18n="location">Location</label><input id="location" value="Casablanca, Morocco"></div></div>
+<label for="website" data-i18n="website">Website or LinkedIn URL</label><input id="website" type="url" placeholder="https://example.com">
+<h3 data-i18n="skills">Skills</h3><label for="skillsInput" data-i18n="skillsHelp">Separate skills with commas</label><input id="skillsInput" value="Web Design, HTML, CSS, Branding">
+<h3 data-i18n="projects">Projects</h3><div id="projectFields"></div><button type="button" class="add" id="addProject" data-i18n="addProject">+ Add a project</button>
+<h3 data-i18n="appearance">Appearance</h3><div class="two"><div><label for="accent" data-i18n="accent">Accent color</label><input class="color-field" id="accent" type="color" value="#1769ff"></div><div><label for="portfolioLang" data-i18n="portfolioLang">Portfolio language</label><select id="portfolioLang"><option value="en">English</option><option value="fr">Français</option></select></div></div>
+</div>
+<div class="panel"><div class="preview-head"><h2 data-i18n="livePreview">Live preview</h2><button id="download" type="button" data-i18n="download">Download HTML ↓</button></div><div class="preview-shell"><div id="preview" aria-live="polite"></div></div></div>
+</div>
+<div class="footer">CreateSpace Studio · Free forever · Built with HTML, CSS & JavaScript</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const translations={
+en:{download:"Download HTML ↓",headline:"Build a portfolio that's yours.",subhead:"Edit your details, personalize your colors, and download a complete website — 100% free.",editor:"Portfolio editor",personal:"Personal details",name:"Full name",role:"Professional title",about:"About me",email:"Email",location:"Location",website:"Website or LinkedIn URL",skills:"Skills",skillsHelp:"Separate skills with commas",projects:"Projects",addProject:"+ Add a project",appearance:"Appearance",accent:"Accent color",portfolioLang:"Portfolio language",livePreview:"Live preview",projectTitle:"Project title",projectDescription:"Project description",remove:"Remove",aboutTitle:"About me",skillsTitle:"Skills",projectsTitle:"Projects",contactTitle:"Contact",visit:"Visit website"},
+fr:{download:"Télécharger HTML ↓",headline:"Créez un portfolio à votre image.",subhead:"Modifiez vos informations, choisissez vos couleurs et téléchargez votre site — 100 % gratuit.",editor:"Éditeur de portfolio",personal:"Informations personnelles",name:"Nom complet",role:"Profession",about:"À propos de moi",email:"E-mail",location:"Ville / Pays",website:"Site web ou lien LinkedIn",skills:"Compétences",skillsHelp:"Séparez les compétences par des virgules",projects:"Projets",addProject:"+ Ajouter un projet",appearance:"Apparence",accent:"Couleur principale",portfolioLang:"Langue du portfolio",livePreview:"Aperçu en direct",projectTitle:"Nom du projet",projectDescription:"Description du projet",remove:"Supprimer",aboutTitle:"À propos",skillsTitle:"Compétences",projectsTitle:"Projets",contactTitle:"Contact",visit:"Voir le site"}
+};
+let uiLang="en";
+let projects=[{title:"My first project",description:"A creative website built with care."}];
+const escapeHTML=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safeUrl=s=>{try{const u=new URL(s);return ["https:","http:"].includes(u.protocol)?u.href:""}catch{return ""}};
+function renderProjectFields(){
+ const root=$("projectFields");root.replaceChildren();
+ projects.forEach((p,i)=>{
+  const wrap=document.createElement("div");wrap.className="repeat";
+  const titleLabel=document.createElement("label");titleLabel.textContent=translations[uiLang].projectTitle;
+  const title=document.createElement("input");title.value=p.title;title.maxLength=150;title.addEventListener("input",()=>{p.title=title.value;render()});
+  const descLabel=document.createElement("label");descLabel.textContent=translations[uiLang].projectDescription;
+  const desc=document.createElement("textarea");desc.value=p.description;desc.addEventListener("input",()=>{p.description=desc.value;render()});
+  const remove=document.createElement("button");remove.type="button";remove.textContent=translations[uiLang].remove;remove.addEventListener("click",()=>{projects.splice(i,1);renderProjectFields();render()});
+  wrap.append(titleLabel,title,descLabel,desc,remove);root.append(wrap);
+ });
+}
+function data(){return {name:$("name").value,role:$("role").value,about:$("about").value,email:$("email").value,location:$("location").value,website:$("website").value,skills:$("skillsInput").value.split(",").map(s=>s.trim()).filter(Boolean),projects:projects.map(p=>({...p})),accent:$("accent").value,lang:$("portfolioLang").value}}
+function portfolioMarkup(d){
+ const t=translations[d.lang],accent=/^#[0-9a-fA-F]{6}$/.test(d.accent)?d.accent:"#1769ff";
+ const skills=d.skills.map(s=>`<span class="p-tag">${escapeHTML(s)}</span>`).join("");
+ const projs=d.projects.filter(p=>p.title.trim()||p.description.trim()).map(p=>`<div class="project"><strong>${escapeHTML(p.title)}</strong><p>${escapeHTML(p.description).replace(/\n/g,"<br>")}</p></div>`).join("");
+ const url=safeUrl(d.website);
+ return `<div class="portfolio" style="--accent:${accent}"><div class="p-hero"><h1>${escapeHTML(d.name)}</h1><p>${escapeHTML(d.role)}</p></div><div class="p-body"><section><h2>${t.aboutTitle}</h2><p>${escapeHTML(d.about).replace(/\n/g,"<br>")}</p></section>${skills?`<section><h2>${t.skillsTitle}</h2><div class="p-tags">${skills}</div></section>`:""}${projs?`<section><h2>${t.projectsTitle}</h2>${projs}</section>`:""}</div><div class="p-contact"><strong>${t.contactTitle}</strong><p>${escapeHTML(d.location)}</p>${d.email?`<p><a href="mailto:${encodeURIComponent(d.email)}">${escapeHTML(d.email)}</a></p>`:""}${url?`<p><a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${t.visit} ↗</a></p>`:""}</div></div>`;
+}
+function render(){$("preview").innerHTML=portfolioMarkup(data())}
+function downloadHTML(){
+ const d=data();const style=document.querySelector("style").textContent;
+ const html=`<!DOCTYPE html>\n<html lang="${d.lang}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escapeHTML(d.name)} — Portfolio</title><style>${style}</style></head><body style="background:#f5f8ff"><main style="max-width:900px;margin:40px auto"><div id="preview">${portfolioMarkup(d)}</div></main></body></html>`;
+ const blob=new Blob([html],{type:"text/html;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="my-portfolio.html";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+document.querySelectorAll("input,textarea,select").forEach(el=>el.addEventListener("input",render));
+$("addProject").addEventListener("click",()=>{projects.push({title:"",description:""});renderProjectFields();render()});
+$("langBtn").addEventListener("click",()=>{uiLang=uiLang==="en"?"fr":"en";$("langBtn").textContent=uiLang==="en"?"FR":"EN";document.querySelectorAll("[data-i18n]").forEach(el=>el.textContent=translations[uiLang][el.dataset.i18n]);renderProjectFields()});
+$("download").addEventListener("click",downloadHTML);$("downloadTop").addEventListener("click",downloadHTML);
+renderProjectFields();render();
+</script>
+</body></html>
